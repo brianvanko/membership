@@ -1,0 +1,150 @@
+<% @companies.each do |comp| %>
+<table>
+  <tr>
+    <td>
+       <%= link_to(image_tag(comp.avatar.url(:thumb), class: "img-rounded"), comp.url, :target => "_blank") %>
+    </td>
+    <td>
+      <h3><%= comp.name %></h3></br>
+      <% comp.categories.each do |cat| %>
+            <%= link_to cat.name, "#", class: "btn btn-default btn-xs" %>
+        <% end %>
+      </td>
+    	<td>
+    		<%= comp.address %></br>
+        <%= comp.city %>, <%= comp.state %> <%= comp.zipcode %></br>
+        <%= comp.phone %></br></br>
+      </td>
+  </tr>
+</table>
+<table>
+    <tr>
+      <%= comp.description %></br>
+  </tr>
+</table>
+
+  <table>
+  <tr>
+    <th>
+      <h4>Plans<h4>
+    <th>
+		<% comp.plans.each do |plan| %>
+    <td>
+      <div class='plans' align=center>
+			<% if plan.seats_open? %>
+      </br>
+				<p>
+					<b><%= plan.name %></b>($<%= plan.price %>)<br>
+					<%= plan.description %>
+					<br>
+					<small>
+						<%= plan.max_seats %> max seats,
+						<%= plan.seats_available %> seats available<br>
+						<div class="btn btn-primary btn-xs buynow" data-planid="<%= plan.id %>">
+							Sign up now!
+						</div>
+					</small>
+				</p>
+			<% else %>
+				<p> No plans avaliable </p>
+			<% end %>
+      </div>
+    </td>
+		<% end %>
+  </tr>
+  </table>
+  <hr size=1 width=80  % align=left>
+<% end %>
+
+<form action="#" method="POST" id="credit-card-form">
+    <fieldset>
+        <legend>Credit Card Details</legend>
+        <label>Card Number
+            <input type="text"
+                   autocomplete="off"
+                   placeholder="Card Number"
+                   class="cc-number" value="4111111111111111">
+        </label>
+        <label>Expiration
+            <input type="text"
+                   autocomplete="off"
+                   placeholder="Expiration Month"
+                   class="cc-em" value="01">
+            <span>/</span>
+            <input type="text"
+                   autocomplete="off"
+                   placeholder="Expiration Year"
+                   class="cc-ey" value="2020">
+        </label>
+        <label>Security Code (CSC)
+            <input type="text"
+                   autocomplete="off"
+                   placeholder="CSC"
+                   class="cc-csc" value="123">
+        </label>
+        <button type="submit" class="btn">
+            Tokenize
+        </button>
+    </fieldset>
+</form>
+	
+<script type="text/javascript" src="https://js.balancedpayments.com/v1/balanced.js"></script>
+<script type="text/javascript">
+    balanced.init('/v1/marketplaces/TEST-MP4f14M3bDczS1ih7NaLOYkO');
+</script>
+
+<script>
+	$(function(){
+		$(".buynow").click(function(){
+			$(".purchaseplan").removeClass("purchaseplan")
+			$(this).addClass("purchaseplan")
+		})
+   function responseCallbackHandler(response) {
+      switch (response.status) {
+        case 400:
+            // missing or invalid field - check response.error for details
+            console.log(response.error);
+            break;
+        case 404:
+            // your marketplace URI is incorrect
+            console.log(response.error);
+            break;
+        case 201:
+            // WOO HOO! MONEY!
+            // response.data.uri == URI of the bank account resource you
+            // should store this bank account URI to later credit it
+            console.log(response.data);
+            var $form = $("#credit-card-form");
+            // the uri is an opaque token referencing the tokenized bank account
+            var cardTokenURI = response.data['uri'];
+            // append the token as a hidden field to submit to the server
+            $('<input>').attr({
+               type: 'hidden',
+               value: cardTokenURI,
+               name: 'balancedCreditCardURI'
+            }).appendTo($form);
+            // $form.attr({action: requestBinURL});
+            var planid = $(".purchaseplan").data("planid")
+            $.post("/subscriptions.json", {cardTokenURI: cardTokenURI, plan: planid }, function(data){
+            	document.location.href = "/subscriptions/"+data["id"]
+            })
+
+        }
+    }
+
+   var tokenizeInstrument = function(e) {
+       e.preventDefault();
+   
+       var $form = $('#credit-card-form');
+       var creditCardData = {
+            card_number: $form.find('.cc-number').val(),
+            expiration_month: $form.find('.cc-em').val(),
+            expiration_year: $form.find('.cc-ey').val(),
+            security_code: $form.find('cc-csc').val()
+        };
+ 
+        balanced.card.create(creditCardData, responseCallbackHandler);
+    };
+   $('#credit-card-form').submit(tokenizeInstrument);
+	})
+</script>

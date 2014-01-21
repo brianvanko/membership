@@ -1,0 +1,35 @@
+<% if current_user %>
+	Welcome Back, <%= current_user.name %><br />
+	<b>Email: </b><%= current_user.email %><br />
+	<b>PH:</b> <%= current_user.phone %><br />
+	<b>Address:</b> <%= current_user.address %><br />
+	<%= current_user.city %>, <%= current_user.state %> <%= current_user.zipcode %><br />
+<% else %>
+	<div class='login-body'>
+	  <div class='login'>
+	    <div class='image-graph'></div>
+	    <h2>Welcome</h2>
+	    <div class='line'></div>
+	   <% if user_signed_in? %>
+          <button><%= link_to "Log out", destroy_user_session_path, method: :delete %></button>
+        <% else %>
+         <%= link_to "Join Now!", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+        <% end %>
+	  </div>
+	  <p></p>
+	  <p></p>
+	  <p></p>
+	  <p></p>
+	  <p></p>
+	  <p></p>
+	  <p></p>
+	  <p></p>
+	  <p></p>
+	  <p></p>
+	  <p></p>
+	  <p></p>
+</div>
+<% end %>
+
+
+

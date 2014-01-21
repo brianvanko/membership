@@ -1,0 +1,27 @@
+ <table>
+	<tr>
+		<%= image_tag @company.avatar.url(:thumb) %>
+	</tr>
+	<tr>
+		
+			<h1><%= @company.name %></h1>
+			<p><%= @company.description %></br></p>
+			<div class="address"?>
+		    <%= @company.address %></br>
+		    <%= @company.city %>, <%= @company.state %> <%= @company.zipcode %></br>
+		    <%= @company.phone %></br></br>
+		  </div>
+		  <p>
+			<%= link_to "Edit Info", edit_company_path %>
+		  </p>
+		
+	</tr>
+ </table>
+
+<h3>Plans</h3>
+<% @company.plans.each do |plan| %>
+	<p>
+		<b><%= plan.name %></b>($<%= plan.price %>)
+	</p>
+<% end %>
+
