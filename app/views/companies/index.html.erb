@@ -53,7 +53,7 @@
 		<% end %>
   </tr>
   </table>
-  <hr size=1 width=80  % align=left>
+  <hr size=1 width=80% align=left>
 <% end %>
 
 <form action="#" method="POST" id="credit-card-form">
@@ -90,11 +90,9 @@
 	
 <script type="text/javascript" src="https://js.balancedpayments.com/v1/balanced.js"></script>
 <script type="text/javascript">
-    balanced.init('/v1/marketplaces/TEST-MP4f14M3bDczS1ih7NaLOYkO');
-</script>
-
-<script>
 	$(function(){
+    balanced.init('/v1/marketplaces/TEST-MP4f14M3bDczS1ih7NaLOYkO');
+
 		$(".buynow").click(function(){
 			$(".purchaseplan").removeClass("purchaseplan")
 			$(this).addClass("purchaseplan")

@@ -4,13 +4,14 @@ Membership1::Application.routes.draw do
   resources :plans
 
   devise_for :companies
+  resources :companies
   resources :pages
 
   resources :subscriptions
   
   devise_for :users
+  resources :users
   
-  resources :companies
   #resources :companies, :only => [:show,:index, :edit]
   root 'pages#landing'
   # The priority is based upon order of creation: first created -> highest priority.

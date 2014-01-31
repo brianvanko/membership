@@ -21,6 +21,6 @@ class CompaniesController < ApplicationController
 	end
 
 	def company_params
-      params.require(:company).permit(:phone,:address,:city,:state,:zipcode, :image_url, :url, :description, :name, :avatar, :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at)
+      params.require(:company).permit(:phone,:address,:city,:state,:zipcode, :url, :description, :name, :avatar, :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at)
     end
 end
