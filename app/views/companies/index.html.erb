@@ -88,15 +88,14 @@
     </fieldset>
 </form>
 	
-<script type="text/javascript" src="https://js.balancedpayments.com/v1/balanced.js"></script>
+<script type="text/javascript" src="//js.balancedpayments.com/v1/balanced.js"></script>
 <script type="text/javascript">
-	$(function(){
+$(function(){
     balanced.init('/v1/marketplaces/TEST-MP4f14M3bDczS1ih7NaLOYkO');
-
-		$(".buynow").click(function(){
-			$(".purchaseplan").removeClass("purchaseplan")
-			$(this).addClass("purchaseplan")
-		})
+$(".buynow").click(function(){
+$(".purchaseplan").removeClass("purchaseplan")
+$(this).addClass("purchaseplan")
+})
    function responseCallbackHandler(response) {
       switch (response.status) {
         case 400:
