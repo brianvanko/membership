@@ -96,6 +96,8 @@ GEM
       rails (>= 3, < 5)
     formatador (0.2.4)
     fssm (0.2.10)
+    geocoder (1.1.8)
+    gmaps4rails (2.1.1)
     guard (2.2.5)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -246,6 +248,8 @@ DEPENDENCIES
   email_spec
   factory_girl_rails
   figaro
+  geocoder
+  gmaps4rails
   guard-bundler
   guard-rails
   guard-rspec

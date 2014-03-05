@@ -17,6 +17,8 @@ gem 'zurb-foundation', '~> 4.3.2'
 gem 'bootstrap-sass'
 gem 'balanced'
 gem 'paperclip', '~> 3.0'
+gem 'gmaps4rails'
+gem 'geocoder'
 
 group :development do
   gem 'better_errors'

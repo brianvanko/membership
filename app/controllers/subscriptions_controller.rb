@@ -37,13 +37,15 @@ class SubscriptionsController < ApplicationController
   # UserMailer.welcomeToPlan(@plan).devliver 
   
     respond_to do |format|
-      if @subscription.save
+      if @subscription.save!
         format.html { redirect_to @subscription, notice: 'Subscription was successfully created.' }
         format.json { render action: 'show', status: :created, location: @subscription }
       else
         format.html { render action: 'new' }
+        puts "@subscription.errors #{@subscription.errors.full_messages}"
         format.json { render json: @plan.errors, status: :unprocessable_entity }
       end
     end
   end
 end
+

@@ -5,13 +5,13 @@ class Subscription < ActiveRecord::Base
 	before_create do |subscription|
 		return subscription.plan.seats_open?
 	end
-	before_create :does_the_user_already_have_this_plan?
+	#before_create :does_the_user_already_have_this_plan?
 
-	private
-	def does_the_user_already_have_this_plan?
-		user = self.user
-		plan = self.plan
+	#private
+	#def does_the_user_already_have_this_plan?
+		#user = self.user
+		#plan = self.plan
 
-		!user.plans.select { |p| p.id==plan.id }==1
-	end
+		#!user.plans.select { |p| p.id==plan.id }==1
+	#end
 end
