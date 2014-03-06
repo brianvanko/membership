@@ -1,5 +1,17 @@
-<div style='width: 800px;'>
+<div class='shadow' style='width: 800px;'>
   <div id="multi_markers" style='width: 800px; height: 400px;'></div>
+</div>
+
+<div class='options'>
+  <h3>Filter by Category</h3>
+  <% @categories.each do |cat| %>
+     <input type="checkbox" id="#{cat.name}"> <%= cat.name %></br>
+  <% end %>
+
+  <h3>Filter by Location</h3>
+  <% @loc.each do |l| %>
+     <input type="checkbox" id="#{l.city}"> <%= l.city %></br>
+  <% end %>
 </div>
 
 <% @companies.each do |comp| %>
@@ -102,21 +114,18 @@
 </script>
 <script type="text/javascript">
 $(function(){
+
+  function displayMap(){
     var handler = Gmaps.build('Google');
-handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
-  var markers = handler.addMarkers([
-    { lat: 43, lng: 3.5},
-    { lat: 45, lng: 4},
-    { lat: 47, lng: 3.5},
-    { lat: 49, lng: 4},
-    { lat: 51, lng: 3.5}
-  ]);
+    handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
+      var markers = handler.addMarkers(<%=raw @hash.to_json %>);
 
-  //markers = handler.addMarkers(<%=raw @hash.to_json %>);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+    });
+  }
 
-  handler.bounds.extendWith(markers);
-  handler.fitMapToBounds();
-});
+  displayMap();
 
 $(".buynow").click(function(){
 $(".purchaseplan").removeClass("purchaseplan")

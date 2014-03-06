@@ -9,4 +9,15 @@ class Company < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :thumb => "100x100>" }
   validates_attachment :avatar,
   :content_type => { :content_type => ["image/jpg", "image/jpeg", "image/gif", "image/png"] }
+ 
+  geocoded_by :full_address
+  before_save :geocode
+
+  private
+
+  def full_address
+  	[address, city, state,
+  	zipcode].compact.join ', '
+  end
+  
 end

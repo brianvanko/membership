@@ -2,10 +2,18 @@ class CompaniesController < ApplicationController
 	def index
 		@companies = Company.all
 
+		@loc = @companies.clone
+		
+		#@companies.uniq!
+		#@companies.inject([]) { |result,h| h[:count]=@loc.count(h) if @loc.count(h) > 1 ; result << h; result }
+
 		@hash = Gmaps4rails.build_markers(@companies) do |company, marker|
 		  marker.lat company.latitude
 		  marker.lng company.longitude
-end
+		  marker.infowindow company.name
+		end
+
+		@categories = Category.all
 	end
 
 	def show
@@ -26,6 +34,6 @@ end
 	end
 
 	def company_params
-      params.require(:company).permit(:phone,:address,:city,:state,:zipcode, :url, :description, :name, :avatar, :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at)
+      params.require(:company).permit(:phone,:address,:city,:state,:zipcode, :url, :description, :name, :avatar, :avatar_file_name, :avatar_content_type, :avatar_file_size, :avatar_updated_at, :categories)
     end
 end
