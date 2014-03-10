@@ -1,9 +1,13 @@
 class CompaniesController < ApplicationController
 	def index
-		@companies = Company.all
+		if (params[:city])
+			@companies = Company.all.where('city = ?', params[:city])
+		else
+			@companies = Company.all
+		end
 
 		@loc = @companies.clone
-		
+
 		#@companies.uniq!
 		#@companies.inject([]) { |result,h| h[:count]=@loc.count(h) if @loc.count(h) > 1 ; result << h; result }
 

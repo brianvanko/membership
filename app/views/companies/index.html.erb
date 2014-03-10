@@ -3,15 +3,18 @@
 </div>
 
 <div class='options'>
+  <%= form_tag("/companies/", :method => "get") do %>
   <h3>Filter by Category</h3>
   <% @categories.each do |cat| %>
-     <input type="checkbox" id="#{cat.name}"> <%= cat.name %></br>
+     <li> <%= check_box_tag  "category_checkbox[]",cat.id %> <%= cat.name %>  </li>
   <% end %>
 
   <h3>Filter by Location</h3>
   <% @loc.each do |l| %>
-     <input type="checkbox" id="#{l.city}"> <%= l.city %></br>
+     <li> <%= check_box_tag  "location_checkbox[]",l.id %> <%= l.city %>  </li>
   <% end %>
+
+  <%end%>
 </div>
 
 <% @companies.each do |comp| %>
@@ -126,6 +129,13 @@ $(function(){
   }
 
   displayMap();
+
+  $('input[type="checkbox"]').change(function(event) {
+      event.preventDefault();
+      // State has changed to checked/unchecked.
+      alert($(this).text();
+});
+
 
 $(".buynow").click(function(){
 $(".purchaseplan").removeClass("purchaseplan")
