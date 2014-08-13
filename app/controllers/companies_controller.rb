@@ -1,15 +1,8 @@
 class CompaniesController < ApplicationController
 	def index
-		if (params[:city])
-			@companies = Company.all.where('city = ?', params[:city])
-		else
-			@companies = Company.all
-		end
-
-		@loc = @companies.clone
-
-		#@companies.uniq!
-		#@companies.inject([]) { |result,h| h[:count]=@loc.count(h) if @loc.count(h) > 1 ; result << h; result }
+		value="<%= @search.query %>"		
+		@search = CompanySearch.new(params[:query], params[:categories])
+  		@companies = @search.companies.order('name')
 
 		@hash = Gmaps4rails.build_markers(@companies) do |company, marker|
 		  marker.lat company.latitude

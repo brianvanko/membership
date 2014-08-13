@@ -83,6 +83,19 @@ html, body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
+.shoppingCart {
+  padding:10px;
+  border: 1px solid #f4f4f2;
+  width:800px;
+  background-color: #626262;
+  background-color: rgba(98, 98, 98, 0.4);
+  background-color:#fff;
+
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
 .shadow {
   border: 1px solid #f4f4f2;
   width:300px;

@@ -1,21 +1,52 @@
 <div class='shadow' style='width: 800px;'>
   <div id="multi_markers" style='width: 800px; height: 400px;'></div>
-</div>
+</div></br>
+
+<table class='shoppingCart table table-striped' id='cart'>
+  <thead>
+    <tr>
+      <td><b>Title</b></td>
+      <td></td>
+      <td><b>Total</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Company1</td>
+      <td><button class="btn btn-danger btn-xs">remove</button></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Company2</td>
+      <td><button class="btn btn-danger btn-xs">remove</button></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td><b>$XX.XX</b></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td><button class="btn btn-primary btn-sm">Buy</button></td>
+    </tr>
+  </tbody>
+</table>
 
 <div class='options'>
-  <%= form_tag("/companies/", :method => "get") do %>
+  <%= form_tag("/companies", :method => "get") do %>
+   Search: <input type="search" name="query" value='<% @search.query %>'><br>
+
   <h3>Filter by Category</h3>
   <% @categories.each do |cat| %>
-     <li> <%= check_box_tag  "category_checkbox[]",cat.id %> <%= cat.name %>  </li>
+     <%= check_box_tag  "categories[]",cat.id, @search.category_ids.include?(cat.id) %> <%= cat.name %>  </br>
   <% end %>
-
-  <h3>Filter by Location</h3>
-  <% @loc.each do |l| %>
-     <li> <%= check_box_tag  "location_checkbox[]",l.id %> <%= l.city %>  </li>
-  <% end %>
-
+  <button class="btn btn-primary btn-sm">filter</button>
   <%end%>
 </div>
+
+
 
 <% @companies.each do |comp| %>
 <table>
@@ -129,13 +160,6 @@ $(function(){
   }
 
   displayMap();
-
-  $('input[type="checkbox"]').change(function(event) {
-      event.preventDefault();
-      // State has changed to checked/unchecked.
-      alert($(this).text();
-});
-
 
 $(".buynow").click(function(){
 $(".purchaseplan").removeClass("purchaseplan")
